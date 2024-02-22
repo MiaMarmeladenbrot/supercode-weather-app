@@ -43,27 +43,30 @@ const getOptions = (cities) => {
     optionElement.textContent = `${city.name} | ${city.country}`;
     optionsOutput.appendChild(optionElement);
 
+    console.log(city);
+
     // Event Handler
-    const getLatLong = () => {
-      const { lat, long } = city;
-      getWeatherData(lat, long);
+    const getLatLon = () => {
+      const { lat, lon } = city;
+      getWeatherData(lat, lon);
     };
+
     // * Event Listener, sobald auf Option geklickt wird:
-    optionElement.addEventListener("click", () => console.log("func läuft"));
+    optionElement.addEventListener("click", getLatLon);
   });
 };
 
 // ! Funktion, um die Wetterdaten via longitude und latitude zu fetchen:
-const getWeatherData = (lat = 52.520008, long = 13.404954) => {
+const getWeatherData = (lat = 52.520008, lon = 13.404954) => {
   fetch(
-    `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${KEY}&units=metric&lang=de`
+    `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=4d391bfa015027f6dda47c22088a30a6&units=metric&lang=de`
   )
     .then((res) => res.json())
-    .then((data) => renderWeatherData(data));
+    .then((data) => fetchWeatherData(data));
 };
 
 // ! Funktion, um die gefetchten Wetterdaten ins HTML zu schreiben:
-const fetchWeatherData = (item) => {
+const fetchWeatherData = (weatherData) => {
   // * Main-Info-Box betexten:
   mainInfoOutput.innerHTML = `
           <p>${new Date().toLocaleDateString()} | ${new Date().toLocaleTimeString(
