@@ -1,0 +1,100 @@
+@font-face {
+  font-family: Overpass;
+  src: url(../font/Overpass-VariableFont_wght.ttf);
+}
+
+/* ! Allgemeine Stylings */
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 62.5%;
+}
+
+.wrapper {
+  padding: 2vw;
+  background: linear-gradient(-135deg, #47bfdf 0%, #4a91ff 90%);
+  color: white;
+  font-family: Overpass, Arial, Helvetica, sans-serif;
+}
+
+header {
+  /* height: 100vh; */
+}
+
+h2 {
+  font-size: clamp(3rem, 4vw, 4.8rem);
+  margin-bottom: 10px;
+}
+
+h3 {
+  font-size: clamp(2.5rem, 3.3vw, 4rem);
+  /* margin-bottom: 10px; */
+}
+
+h4 {
+  font-size: clamp(2.8rem, 3.2vw, 3.8rem);
+  margin-bottom: 10px;
+}
+
+p,
+a {
+  font-size: clamp(2rem, 2vw, 2rem);
+  margin-bottom: 10px;
+}
+
+/* ! Input Form für Stadt */
+form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+#city-input {
+  width: 60vw;
+  border-radius: 10px;
+  border: none;
+  padding: 5px;
+  margin-bottom: 10px;
+}
+
+#submit {
+  font-size: 1.5rem;
+  background-color: white;
+  color: #444e72;
+  border: none;
+  border-radius: 10px;
+  padding: 10px 20px;
+  cursor: pointer;
+
+  margin-bottom: 30px;
+}
+
+/* ! Main Info Box */
+.main-info {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border-radius: 10px;
+  background-color: #ffffff70;
+  padding: 20px 0 10px 0;
+  margin: 0 5vw 20px 5vw;
+}
+
+img {
+  display: block;
+}
+
+/* ! More Info Box */
+.more-info {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border-radius: 10px;
+  background-color: #ffffff70;
+  padding: 20px 0 10px 0;
+  margin: 0 5vw 20px 5vw;
+}
