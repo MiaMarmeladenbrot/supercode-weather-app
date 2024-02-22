@@ -20,21 +20,24 @@ fetch(
 
     // * Sunrise und Sunset in Uhrzeit umwandeln:
     // leider sind die Daten für Sonnenaufgang falsch ...
-    const sunrise = weatherData.sys.sunrise;
-    const sunriseDatum = new Date(sunrise);
-    const sunriseTime = sunriseDatum.toLocaleTimeString("de-DE", {
-      hour: "2-digit",
-      minute: "2-digit",
-    });
-    console.log(sunriseTime);
+    // const sunrise = weatherData.sys.sunrise;
+    // const sunriseDatum = new Date(sunrise);
+    // const sunriseTime = sunriseDatum.toLocaleTimeString("de-DE", {
+    //   hour: "2-digit",
+    //   minute: "2-digit",
+    // });
+    // console.log(sunriseTime);
 
-    const sunset = weatherData.sys.sunset;
-    const sunsetDatum = new Date(sunset);
-    const sunsetTime = sunsetDatum.toLocaleTimeString("de-DE", {
-      hour: "2-digit",
-      minute: "2-digit",
-    });
-    console.log(sunsetTime);
+    // const sunset = weatherData.sys.sunset;
+    // const sunsetDatum = new Date(sunset);
+    // const sunsetTime = sunsetDatum.toLocaleTimeString("de-DE", {
+    //   hour: "2-digit",
+    //   minute: "2-digit",
+    // });
+    // console.log(sunsetTime);
+
+    // # funktioniert noch nicht ...
+    const sunrise = weatherData.sys.sunrise * 1000;
 
     // * großes Hauptinfo-Feld betexten:
     mainInfoOutput.innerHTML = `
@@ -58,47 +61,31 @@ fetch(
     moreInfoOutput.innerHTML = `
     ${
       weatherData.rain
-        ? `<p>Niederschlagsintensität | ${weatherData.rain["1h"]} mm/h</p>`
+        ? `<p>Niederschlagsintensität: ${weatherData.rain["1h"]} mm/h</p>`
         : ""
     }
     ${
       weatherData.wind.speed
-        ? `<p>Wind | ${Math.round(weatherData.wind.speed * 3.6)} km/h</p>`
+        ? `<p>Wind: ${Math.round(weatherData.wind.speed * 3.6)} km/h</p>`
         : ""
     }
     ${
       weatherData.wind.gust
-        ? `<p>Böen | ${Math.round(weatherData.wind.gust * 3.6)} km/h</p>`
+        ? `<p>Böen: ${Math.round(weatherData.wind.gust * 3.6)} km/h</p>`
         : ""
     }
 
     ${
       weatherData.main.humidity
-        ? `<p>Luftfeuchtigkeit | ${weatherData.main.humidity} %</p>
+        ? `<p>Luftfeuchtigkeit: ${weatherData.main.humidity} %</p>
           `
         : ""
     }
     
-    <p>Sonnenaufgang | ${sunriseTime}</p>
-    <p>Sonnenuntergang | ${sunsetTime}</p>
+    <p>Sonnenaufgang: ${sunrise}</p>
+    <p>Sonnenuntergang: ${weatherData.sys.sunset * 1000}</p>
 
 
     `;
   })
   .catch((err) => console.log("geht nicht", err));
-
-// function checkData(data, des) {
-//   data ? `<p>${des} | ${data} mm/h</p>` : "";
-// }
-
-// ! gelöschte Teile
-{
-  /* <p>Wind | ${Math.round(weatherData.wind.speed * 3.6)} km/h</p> */
-}
-
-{
-  /* <p>Böen | ${Math.round(weatherData.wind.gust * 3.6)} km/h</p>
-    <p>Luftfeuchtigkeit | ${weatherData.main.humidity} %</p>
-    <p>Sonnenaufgang | ${sunriseTime}</p>
-    <p>Sonnenuntergang | ${sunsetTime}</p> */
-}

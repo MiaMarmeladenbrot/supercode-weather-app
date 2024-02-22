@@ -3,15 +3,18 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Weather App - Version 2</title>
+    <title>Weather App - Version 3</title>
     <link rel="stylesheet" href="./assets/css/style.css" />
   </head>
   <body>
     <article class="wrapper">
       <header>
-        <!-- ! Input-Formular - noch nicht verwendbar -->
+        <!-- ! Input-Formular mit select options -->
         <form>
           <input type="text" id="city-input" />
+          <select name="city-options" id="city-options">
+            <option value="choose">choose</option>
+          </select>
           <input type="submit" value="Check Weather" id="submit" />
         </form>
         <p class="error-message"></p>
@@ -26,6 +29,6 @@
         </section>
       </header>
     </article>
-    <script src="./assets/js/main.js"></script>
+    <script src="./assets/js/main1.js"></script>
   </body>
 </html>

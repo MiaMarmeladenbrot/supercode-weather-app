@@ -1,6 +1,7 @@
-// ! VERSION 2
+// # VERSION 3c: Input-Formular mit select options
 // 1. HTML Formular bauen mit leeren Ausgabe-Feldern ✅
 // 2. output Variablen ✅
+// Funktion,
 // 3. eventListener, deshalb mit appendChild ✅
 // 4. value auslesen ✅
 // 5. Geodaten fetchen ✅
@@ -10,12 +11,13 @@
 
 // ! Variablen
 const weatherDataOutput = document.querySelector(".weather-data-output");
-// console.log(weatherDataOutput);
 const mainInfoOutput = document.querySelector(".main-info");
 const moreInfoOutput = document.querySelector(".more-info");
+const optionsOutput = document.querySelector("#city-options");
 const errorMessage = document.querySelector(".error-message");
 const submitBtn = document.querySelector("#submit");
 
+// # falsch, weil Klick auf Button und nicht auf Option ...
 // ! Event-Listener fürs Eingeben der Stadt
 submitBtn.addEventListener("click", (event) => {
   event.preventDefault();
@@ -29,7 +31,7 @@ submitBtn.addEventListener("click", (event) => {
     errorMessage.innerHTML = `Bitte gib eine Stadt ein`;
   }
 
-  // * Geodaten fetchen mit User-Input:
+  // * Geodaten fetchen mit User-Input, um City rauszubekommen:
   fetch(
     `http://api.openweathermap.org/geo/1.0/direct?q=${userInput}&limit=10&lang=de&appid=4d391bfa015027f6dda47c22088a30a6`
   )
@@ -37,10 +39,17 @@ submitBtn.addEventListener("click", (event) => {
     .then((geoData) => {
       // console.log(geoData);
 
-      // * über Geo-Daten des User-Inputs iterieren, um alle gefetchten Matches zum User-Input zu erhalten und zu durchlaufen:
+      // * über Geo-Daten des User-Inputs iterieren, um alle gefetchten Matches zum User-Input zu durchlaufen:
       geoData.forEach((item) => {
         // console.log(item.lat);
         // console.log(item.lon);
+
+        // * Options zum select-Tag hinzufügen, je nachdem, welchen Input der User gegeben hat:
+        const option = document.createElement("option");
+        option.textContent = `${item.name} | ${item.country}`;
+        optionsOutput.appendChild(option);
+
+        // # =====
 
         // * Wetterdaten fetchen mit User-Input:
         fetch(
