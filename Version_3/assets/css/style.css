@@ -19,6 +19,9 @@ html {
   background: linear-gradient(-135deg, #47bfdf 0%, #4a91ff 90%);
   color: white;
   font-family: Overpass, Arial, Helvetica, sans-serif;
+
+  /* max-width: 700px;
+  margin: 0 auto; */
 }
 
 header {
@@ -55,11 +58,11 @@ form {
 }
 
 #city-input {
-  width: 60vw;
-  border-radius: 10px;
+  color: #396fc1;
+  width: 200px;
   border: none;
   padding: 5px;
-  margin-bottom: 10px;
+  border: 1px solid #396fc1;
 }
 
 #submit {
@@ -75,13 +78,20 @@ form {
 }
 
 /* # Select verstecken, bis auf Button geklickt wurde und dann options anzeigen */
-/* #city-options {
+select {
   display: none;
+  width: 200px;
+  background-color: rgb(255, 254, 254);
+  color: #396fc1;
+  padding: 10px;
+  border-top: 1px solid #396fc1;
+  overflow-y: auto;
+  border: none;
 }
 
 .show {
   display: block;
-} */
+}
 
 /* ! Main Info Box */
 .main-info {
