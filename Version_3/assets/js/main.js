@@ -88,46 +88,47 @@ getWeatherData();
 const fetchWeatherData = (weatherData) => {
   // console.log(weatherData);
 
-  // * Sonnenauf- und -untergang als Uhrzeit ausgeben (mit 0, falls Zahl<10):
-  // -1, weil Sommerzeit/Winterzeit-Problematik
-  // console.log(weatherData.sys.sunrise);
+  // * Sonnenauf- und -untergang als Uhrzeit ausgeben (mit 0, falls Zahl<10 und mit UTCHours/Minutes wg. Sommer/Winterzeit):
+  // : Sonnenaufgang
   const sunrise = new Date(
     (weatherData.sys.sunrise + weatherData.timezone) * 1000
   );
-  const sunriseHours =
-    sunrise.getHours() - 1 < 10
-      ? `0${sunrise.getHours() - 1}`
-      : sunrise.getHours() - 1;
-  const sunriseMinutes =
-    sunrise.getMinutes() < 10
-      ? `0${sunrise.getMinutes()}`
-      : sunrise.getMinutes();
-  // console.log(sunriseHours, sunriseMinutes);
 
+  const sunriseHours =
+    sunrise.getUTCHours() < 10
+      ? `0${sunrise.getUTCHours()}`
+      : sunrise.getUTCHours();
+
+  const sunriseMinutes =
+    sunrise.getUTCMinutes() < 10
+      ? `0${sunrise.getUTCMinutes()}`
+      : sunrise.getUTCMinutes();
+  console.log(sunriseHours, sunriseMinutes);
+
+  // : Sonnenuntergang:
   const sunset = new Date(
     (weatherData.sys.sunset + weatherData.timezone) * 1000
   );
   const sunsetHours =
-    sunset.getHours() - 1 < 10
-      ? `0${sunset.getHours() - 1}`
-      : sunset.getHours() - 1;
+    sunset.getUTCHours() < 10
+      ? `0${sunset.getUTCHours()}`
+      : sunset.getUTCHours();
+
   const sunsetMinutes =
-    sunset.getMinutes() < 10 ? `0${sunset.getMinutes()}` : sunset.getMinutes();
-  // console.log(sunsetHours, sunsetMinutes);
+    sunset.getUTCMinutes() < 10
+      ? `0${sunset.getUTCMinutes()}`
+      : sunset.getUTCMinutes();
 
   // * Zeit und Datum jeweils an ausgewählte Stadt anpassen (mit 0, falls Zahl<10):
-  // -1, weil Sommerzeit/Winterzeit-Problematik
-  // console.log(weatherData.dt);
-  // console.log(weatherData);
   const dt = new Date((weatherData.dt + weatherData.timezone) * 1000);
   const localDay = dt.getDate();
   const localMonth = dt.getMonth() + 1;
   const localYear = dt.getFullYear();
 
   const localHours =
-    dt.getHours() - 1 < 10 ? `0${dt.getHours() - 1}` : dt.getHours() - 1;
+    dt.getUTCHours() - 1 < 10 ? `0${dt.getUTCHours()}` : dt.getUTCHours();
   const localMinutes =
-    dt.getMinutes() < 10 ? `0${dt.getMinutes()}` : dt.getMinutes();
+    dt.getUTCMinutes() < 10 ? `0${dt.getUTCMinutes()}` : dt.getUTCMinutes();
 
   // * Weather-Data-Box betexten:
   weatherDataOutput.innerHTML = `
@@ -146,7 +147,7 @@ const fetchWeatherData = (weatherData) => {
   <p>${weatherData.weather[0].description}</p>
   `;
 
-  // * kleineres Feld mit weiteren Infos betexten, sofern sie im json vorhanden sind:
+  // * More-Info-Box betexten, sofern Inhalte in API vorhanden sind:
   moreInfoOutput.innerHTML = `
     ${weatherData.rain ? `<p>🌧️ ${weatherData.rain["1h"]} mm/h</p>` : ""}
     ${
@@ -175,7 +176,6 @@ const fetchWeatherData = (weatherData) => {
   // id = rain
   if (weatherData.weather[0].id >= 500 && weatherData.weather[0].id <= 599) {
     adviceMessage.innerHTML = `<p class="green">Mit Regenjacke vermutlich okay</p>`;
-    // console.log("läuft");
   } else if (
     // id = clear - few clouds
     weatherData.weather[0].id >= 800 &&

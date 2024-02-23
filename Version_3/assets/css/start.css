@@ -60,6 +60,9 @@ a {
 }
 
 /* ! Header */
+.error-message {
+  color: #ec7d2b;
+}
 /* ! Input Form für Stadt */
 form {
   display: flex;
@@ -69,6 +72,7 @@ form {
   width: 70ch;
   position: relative;
 }
+
 #city-input {
   color: #29589b;
   width: 200px;
@@ -100,14 +104,6 @@ select {
   display: block;
 }
 
-.error-message {
-  color: #ec7d2b;
-  /* margin: 10px; */
-
-  /* width: 19ch; */
-  /* text-align: center; */
-}
-
 /* ! Section für den Output */
 .output {
   display: flex;
@@ -134,15 +130,12 @@ select {
 }
 
 .advice-message {
-  /* border-radius: 10px;
-  padding: 10px; */
   margin-top: 10px;
-  /* width: 50ch; */
 }
 
 .advice-message p {
-  /* color: #81b378; */
   margin-bottom: 0;
+  margin-top: 10px;
   font-size: clamp(2rem, 2.8vw, 3rem);
   width: 19ch;
   text-align: center;
