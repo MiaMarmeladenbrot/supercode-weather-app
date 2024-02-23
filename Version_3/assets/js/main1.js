@@ -9,7 +9,7 @@ const errorMessage = document.querySelector(".error-message");
 const submitBtn = document.querySelector("#submit");
 const form = document.querySelector("form");
 
-// ! Funktion, um den User-Input-Value und die ausgewählte Stadt aus den options zu bekommen:
+// ! Funktion, um den User-Input-Value und die ausgewählte Stadt in die options weiterzugeben:
 const getUserData = (event) => {
   event.preventDefault();
 
@@ -22,35 +22,42 @@ const getUserData = (event) => {
     errorMessage.innerHTML = `Bitte gib eine Stadt ein`;
   }
 
-  // * Geodaten fetchen mit User-Input, um City rauszubekommen:
+  // * Geodaten fetchen mit User-Input, um City rauszubekommen (auf 5 begrenzt):
   fetch(
-    `http://api.openweathermap.org/geo/1.0/direct?q=${userInput}&limit=10&lang=de&appid=4d391bfa015027f6dda47c22088a30a6`
+    `http://api.openweathermap.org/geo/1.0/direct?q=${userInput}&limit=5&lang=de&appid=4d391bfa015027f6dda47c22088a30a6`
   )
     .then((res) => res.json())
-    .then((cities) =>
-      getOptions(cities).catch((err) =>
-        console.log("fehler beim GeoDaten fetchen", err)
-      )
+    .then(
+      (cities) =>
+        // * Funktionsaufruf, um gefundenen Suchergebnisse als Optionen auszugeben:
+        getOptions(cities)
+      // .catch((err) =>
+      //   console.log("fehler beim GeoDaten fetchen", err)
+      // )
     );
 };
 
 // ! Funktion, um die gefundenen Suchergebnisse via select/option anzeigen zu lassen
 const getOptions = (cities) => {
-  // * über Geo-Fetch-Daten des User-Inputs iterieren, um alle gefetchten Matches zum User-Input zu durchlaufen:
+  // * über Geo-Fetch-Daten des User-Inputs iterieren, um alle gefetchten Suchergebnisse des User-Inputs zu durchlaufen:
   cities.forEach((city) => {
+    console.log(city);
+
+    // * option-Elemente im select-Output erstellen und mit Name und Land des Suchergebnisses befüllen:
     const optionElement = document.createElement("option");
     optionElement.textContent = `${city.name} | ${city.country}`;
     optionsOutput.appendChild(optionElement);
 
-    console.log(city);
-
-    // Event Handler
+    // * Latitude und Longitude der gesuchten Stadt weitergeben an Funktion getWeatherData beim Klick auf die Stadt in den options:
     const getLatLon = () => {
-      const { lat, lon } = city;
+      const lat = city.lat;
+      const lon = city.lon;
+
+      // console.log(lat, lon);
       getWeatherData(lat, lon);
     };
 
-    // * Event Listener, sobald auf Option geklickt wird:
+    // * Event Listener, sobald auf Option geklickt wird, soll getLatLon ausgeführt werden, sollen also die Wetterdaten für die ausgewählte Stadt angezeigt werden:
     optionElement.addEventListener("click", getLatLon);
   });
 };
@@ -62,6 +69,7 @@ const getWeatherData = (lat = 48.137154, lon = 11.576124) => {
     `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=4d391bfa015027f6dda47c22088a30a6&units=metric&lang=de`
   )
     .then((res) => res.json())
+    // * Funktionsaufruf, um gefundene Daten ins HTML zu schreiben:
     .then((data) => fetchWeatherData(data));
 };
 
@@ -75,14 +83,14 @@ const fetchWeatherData = (weatherData) => {
     hour: "2-digit",
     minute: "2-digit",
   });
-  console.log(sunriseTime);
+  // console.log(sunriseTime);
 
   const sunset = weatherData.sys.sunset * 1000;
   const sunsetTime = new Date(sunset).toLocaleTimeString("de-DE", {
     hour: "2-digit",
     minute: "2-digit",
   });
-  console.log(sunsetTime);
+  // console.log(sunsetTime);
 
   // * Main-Info-Box betexten:
   mainInfoOutput.innerHTML = `
@@ -132,4 +140,12 @@ const fetchWeatherData = (weatherData) => {
     `;
 };
 
-form.addEventListener("submit", getUserData);
+// * Event Listener auf dem Input-Feld, um die User-Suchergebnisse direkt darunter auszugeben:
+// form.addEventListener("submit", getUserData);
+const input = document.querySelector("#city-input");
+input.addEventListener("input", () => {
+  // Select-Element immer zuerst leeren, damit es sich überschreibt:
+  optionsOutput.innerHTML = "";
+  // Funktionsaufruf, um User-Daten auszugeben:
+  getUserData(event);
+});
