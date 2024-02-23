@@ -83,20 +83,19 @@ getWeatherData();
 
 // ! Funktion, um die gefetchten Wetterdaten ins HTML zu schreiben:
 const fetchWeatherData = (weatherData) => {
-  // * Sunrise und Sunset in Uhrzeit umwandeln (deutsche Ausgabe mit 2 Ziffern für h und m):
-  const sunrise = weatherData.sys.sunrise * 1000;
-  const sunriseTime = new Date(sunrise).toLocaleTimeString("de-DE", {
-    hour: "2-digit",
-    minute: "2-digit",
-  });
-  // console.log(sunriseTime);
+  // * Sonnenauf- und -untergang berechnen:
+  let timezone = weatherData.timezone;
+  let sunrise = weatherData.sys.sunrise;
+  let sunriseTime = moment
+    .utc(sunrise, "X")
+    .add(timezone, "seconds")
+    .format("HH:mm");
 
-  const sunset = weatherData.sys.sunset * 1000;
-  const sunsetTime = new Date(sunset).toLocaleTimeString("de-DE", {
-    hour: "2-digit",
-    minute: "2-digit",
-  });
-  // console.log(sunsetTime);
+  let sunset = weatherData.sys.sunset;
+  let sunsetTime = moment
+    .utc(sunset, "X")
+    .add(timezone, "seconds")
+    .format("HH:mm");
 
   // * Main-Info-Box betexten:
   mainInfoOutput.innerHTML = `
@@ -140,9 +139,9 @@ const fetchWeatherData = (weatherData) => {
           `
         : ""
     }
-
     <p>Sonnenaufgang: ${sunriseTime}</p>
     <p>Sonnenuntergang: ${sunsetTime}</p>
+  
     `;
 };
 
@@ -155,3 +154,22 @@ input.addEventListener("input", () => {
   // Funktionsaufruf, um User-Daten auszugeben:
   getUserData(event);
 });
+
+// #######
+// // * Sunrise und Sunset in Uhrzeit umwandeln (deutsche Ausgabe mit 2 Ziffern für h und m):
+// const sunrise = weatherData.sys.sunrise * 1000;
+// const sunriseTime = new Date(sunrise).toLocaleTimeString("de-DE", {
+//   hour: "2-digit",
+//   minute: "2-digit",
+// });
+// // console.log(sunriseTime);
+
+// const sunset = weatherData.sys.sunset * 1000;
+// const sunsetTime = new Date(sunset).toLocaleTimeString("de-DE", {
+//   hour: "2-digit",
+//   minute: "2-digit",
+// });
+// // console.log(sunsetTime);
+
+// <p>Sonnenaufgang: ${sunriseTime}</p>
+// <p>Sonnenuntergang: ${sunsetTime}</p>
