@@ -219,7 +219,7 @@ const fetchWeatherData = (weatherData) => {
 
 // * Event Listener auf dem Input-Feld, um die User-Suchergebnisse direkt darunter auszugeben:
 const input = document.querySelector("#city-input");
-input.addEventListener("input", () => {
+input.addEventListener("keyup", () => {
   // Select-Element immer zuerst leeren, damit es sich überschreibt:
   optionsOutput.innerHTML = "";
   // Funktionsaufruf, um User-Daten auszugeben:
