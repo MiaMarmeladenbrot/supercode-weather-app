@@ -6,6 +6,7 @@ const mainInfoOutput = document.querySelector(".main-info");
 const moreInfoOutput = document.querySelector(".more-info");
 const optionsOutput = document.querySelector("#city-options");
 const errorMessage = document.querySelector(".error-message");
+const adviceMessage = document.querySelector(".advice-message");
 // const form = document.querySelector("form");
 
 // ! Funktion, um den User-Input-Value und die ausgewählte Stadt in die options weiterzugeben:
@@ -85,7 +86,7 @@ getWeatherData();
 
 // ! Funktion, um die gefetchten Wetterdaten ins HTML zu schreiben:
 const fetchWeatherData = (weatherData) => {
-  console.log(weatherData);
+  // console.log(weatherData);
 
   // * Sonnenauf- und -untergang als Uhrzeit ausgeben (mit 0, falls Zahl<10):
   // -1, weil Sommerzeit/Winterzeit-Problematik
@@ -128,14 +129,14 @@ const fetchWeatherData = (weatherData) => {
   const localMinutes =
     dt.getMinutes() < 10 ? `0${dt.getMinutes()}` : dt.getMinutes();
 
-  // * Main-Info-Box betexten:
-
+  // * Weather-Data-Box betexten:
   weatherDataOutput.innerHTML = `
   <div>
   <p>${localDay}.${localMonth}.${localYear} | ${localHours}:${localMinutes}</p>
   <h3>${weatherData.name} (${weatherData.sys.country})</h3>
   </div>`;
 
+  // * Main-Info-Box betexten:
   mainInfoOutput.innerHTML = `
   <img src="https://openweathermap.org/img/wn/${
     weatherData.weather[0].icon
@@ -169,6 +170,51 @@ const fetchWeatherData = (weatherData) => {
     <p>☀️ ${sunsetHours}:${sunsetMinutes}</p>
   
     `;
+
+  // * Ratschlag ins HTML schreiben, basierend auf den IDs der Wetterdaten:
+  // id = rain
+  if (weatherData.weather[0].id >= 500 && weatherData.weather[0].id <= 599) {
+    adviceMessage.innerHTML = `<p>Mit Regenjacke vermutlich okay</p>`;
+    // console.log("läuft");
+  } else if (
+    // id = clear - few clouds
+    weatherData.weather[0].id >= 800 &&
+    weatherData.weather[0].id <= 802
+  ) {
+    adviceMessage.innerHTML = `<p>Perfektes Wanderwetter - viel Spaß!</p>`;
+  } else if (
+    // id = clouds
+    weatherData.weather[0].id >= 803 &&
+    weatherData.weather[0].id <= 804
+  ) {
+    adviceMessage.innerHTML = `<p>Die paar Wolken sind doch kein Problem!</p>`;
+  } else if (
+    // id = snow
+    weatherData.weather[0].id >= 600 &&
+    weatherData.weather[0].id <= 699
+  ) {
+    adviceMessage.innerHTML = `<p>Mit warmer Kleidung vermutlich okay</p>`;
+  } else if (
+    // id = thunderstorm
+    weatherData.weather[0].id >= 200 &&
+    weatherData.weather[0].id <= 299
+  ) {
+    adviceMessage.innerHTML = `<p>Heute lieber ab auf die Couch</p>`;
+  } else if (
+    // id = drizzle
+    weatherData.weather[0].id >= 300 &&
+    weatherData.weather[0].id <= 399
+  ) {
+    adviceMessage.innerHTML = `<p>Unbedingt Regenjacke mitnehmen</p>`;
+  } else if (
+    // id = atmosphere
+    weatherData.weather[0].id >= 700 &&
+    weatherData.weather[0].id <= 799
+  ) {
+    adviceMessage.innerHTML = `<p>Heute sieht's eher nach einem Couch-Tag aus</p>`;
+  } else {
+    adviceMessage.innerHTML = `<p>Da kann ich leider nichts empfehlen</p>`;
+  }
 };
 
 // * Event Listener auf dem Input-Feld, um die User-Suchergebnisse direkt darunter auszugeben:

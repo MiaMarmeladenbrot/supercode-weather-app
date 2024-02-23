@@ -15,17 +15,19 @@ html {
 }
 
 .wrapper {
-  padding: 5vw;
+  padding: 3vw;
 
   font-family: Overpass, Arial, Helvetica, sans-serif;
 
-  /* max-width: 700px; */
-  /* margin: 0 auto; */
+  max-width: 1440px;
+  margin: 0 auto;
 
   height: 100vh;
-  background: url(../img/summer-hiking-man.png) right bottom no-repeat;
+  background: url(../img/summer-hiking-man.png) 105% bottom no-repeat;
   background-size: 70%;
-  background-color: #f5fafe;
+  /* background-color: #f5fafe; */
+  background-color: #d6e6fb;
+  /* background-color: #eaf3fa; */
 }
 
 h1 {
@@ -58,8 +60,15 @@ a {
 }
 
 /* ! Header */
-
 /* ! Input Form für Stadt */
+form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  width: 70ch;
+  position: relative;
+}
 #city-input {
   color: #29589b;
   width: 200px;
@@ -73,7 +82,7 @@ a {
   color: #29589b;
 }
 
-#submit {
+/* submit {
   font-size: 1.5rem;
   background-color: white;
   color: #29589b;
@@ -83,18 +92,20 @@ a {
   cursor: pointer;
 
   margin-bottom: 30px;
-}
+} */
 
 select {
   display: none;
   width: 200px;
-  /* background-color: #eaf3fa; */
   color: #29589b;
   padding: 5px 10px;
   border-top: 1px solid #29589b;
   overflow-y: auto;
   border: none;
   border-radius: 10px;
+
+  position: absolute;
+  top: 3rem;
 }
 
 .show {
@@ -107,6 +118,13 @@ select {
 }
 
 /* ! Section für den Output */
+.output {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  width: 70ch;
+}
 
 .flex {
   display: flex;
@@ -115,7 +133,7 @@ select {
 }
 
 .weather-data-output p:first-of-type {
-  margin-top: 50px;
+  margin-top: 2rem;
 }
 
 .weather-data-output,
@@ -124,10 +142,17 @@ select {
   text-align: center;
 }
 
-.output {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+.advice-message {
+  background-color: #bfe2a767;
+  border-radius: 10px;
+  padding: 10px;
+  margin-top: 10px;
+}
 
-  margin-left: -65vw;
+.advice-message p {
+  color: #81b378;
+  margin-top: 20px;
+  font-size: clamp(2rem, 2.8vw, 3rem);
+  width: 18ch;
+  text-align: center;
 }

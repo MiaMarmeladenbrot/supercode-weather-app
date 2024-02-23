@@ -3,17 +3,17 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Weather App - Version 3</title>
+    <title>Der Wanderwetter Check</title>
     <!-- <link rel="stylesheet" href="./assets/css/style.css" /> -->
     <link rel="stylesheet" href="./assets/css/start.css" />
   </head>
   <body>
     <article class="wrapper">
       <header>
+        <h1>Ist bei dir heute Wanderwetter?</h1>
+
         <!-- ! Input-Formular mit select options -->
         <form>
-          <h1>Und wie ist das Wetter bei dir?</h1>
-
           <input
             type="text"
             id="city-input"
@@ -32,6 +32,9 @@
         <!-- ! Wetterdaten Output - aus JS importiert -->
 
         <section class="output">
+          <!-- * Container für Ratschlag basierend auf Wetter-ID -->
+          <div class="advice-message"></div>
+
           <!-- * Container für Stadt, Datum, Zeit -->
           <section class="weather-data-output"></section>
           <!--* Container für Haupt-Infos -->
@@ -41,6 +44,7 @@
             <!--* Container für weitere Infos -->
             <article class="more-info"></article>
           </section>
+          <!-- <p class="advice-message"></p> -->
         </section>
       </header>
     </article>
