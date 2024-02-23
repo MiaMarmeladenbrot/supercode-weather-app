@@ -103,7 +103,7 @@ const fetchWeatherData = (weatherData) => {
     sunrise.getUTCMinutes() < 10
       ? `0${sunrise.getUTCMinutes()}`
       : sunrise.getUTCMinutes();
-  console.log(sunriseHours, sunriseMinutes);
+  // console.log(sunriseHours, sunriseMinutes);
 
   // : Sonnenuntergang:
   const sunset = new Date(
