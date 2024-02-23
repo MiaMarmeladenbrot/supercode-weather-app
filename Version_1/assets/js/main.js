@@ -18,26 +18,20 @@ fetch(
   .then((weatherData) => {
     console.log(weatherData);
 
-    // * Sunrise und Sunset in Uhrzeit umwandeln:
-    // leider sind die Daten für Sonnenaufgang falsch ...
-    // const sunrise = weatherData.sys.sunrise;
-    // const sunriseDatum = new Date(sunrise);
-    // const sunriseTime = sunriseDatum.toLocaleTimeString("de-DE", {
-    //   hour: "2-digit",
-    //   minute: "2-digit",
-    // });
-    // console.log(sunriseTime);
-
-    // const sunset = weatherData.sys.sunset;
-    // const sunsetDatum = new Date(sunset);
-    // const sunsetTime = sunsetDatum.toLocaleTimeString("de-DE", {
-    //   hour: "2-digit",
-    //   minute: "2-digit",
-    // });
-    // console.log(sunsetTime);
-
-    // # funktioniert noch nicht ...
+    // * Sunrise und Sunset in Uhrzeit umwandeln (deutsche Ausgabe mit 2 Ziffern für h und m):
     const sunrise = weatherData.sys.sunrise * 1000;
+    const sunriseTime = new Date(sunrise).toLocaleTimeString("de-DE", {
+      hour: "2-digit",
+      minute: "2-digit",
+    });
+    console.log(sunriseTime);
+
+    const sunset = weatherData.sys.sunset * 1000;
+    const sunsetTime = new Date(sunset).toLocaleTimeString("de-DE", {
+      hour: "2-digit",
+      minute: "2-digit",
+    });
+    console.log(sunsetTime);
 
     // * großes Hauptinfo-Feld betexten:
     mainInfoOutput.innerHTML = `
@@ -82,8 +76,8 @@ fetch(
         : ""
     }
     
-    <p>Sonnenaufgang: ${sunrise}</p>
-    <p>Sonnenuntergang: ${weatherData.sys.sunset * 1000}</p>
+    <p>Sonnenaufgang: ${sunriseTime}</p>
+    <p>Sonnenuntergang: ${sunsetTime}</p>
 
 
     `;

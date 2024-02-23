@@ -27,11 +27,10 @@ const getUserData = (event) => {
     `http://api.openweathermap.org/geo/1.0/direct?q=${userInput}&limit=10&lang=de&appid=4d391bfa015027f6dda47c22088a30a6`
   )
     .then((res) => res.json())
-    .then(
-      (cities) => getOptions(cities)
-      // .catch((err) =>
-      //   console.log("fehler beim GeoDaten fetchen", err)
-      // )
+    .then((cities) =>
+      getOptions(cities).catch((err) =>
+        console.log("fehler beim GeoDaten fetchen", err)
+      )
     );
 };
 
@@ -57,7 +56,8 @@ const getOptions = (cities) => {
 };
 
 // ! Funktion, um die Wetterdaten via longitude und latitude zu fetchen:
-const getWeatherData = (lat = 52.520008, lon = 13.404954) => {
+// mit festen lat- und lon-Werten, um Münchner-Wetter als default auszugeben:
+const getWeatherData = (lat = 48.137154, lon = 11.576124) => {
   fetch(
     `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=4d391bfa015027f6dda47c22088a30a6&units=metric&lang=de`
   )
@@ -65,8 +65,25 @@ const getWeatherData = (lat = 52.520008, lon = 13.404954) => {
     .then((data) => fetchWeatherData(data));
 };
 
+getWeatherData();
+
 // ! Funktion, um die gefetchten Wetterdaten ins HTML zu schreiben:
 const fetchWeatherData = (weatherData) => {
+  // * Sunrise und Sunset in Uhrzeit umwandeln (deutsche Ausgabe mit 2 Ziffern für h und m):
+  const sunrise = weatherData.sys.sunrise * 1000;
+  const sunriseTime = new Date(sunrise).toLocaleTimeString("de-DE", {
+    hour: "2-digit",
+    minute: "2-digit",
+  });
+  console.log(sunriseTime);
+
+  const sunset = weatherData.sys.sunset * 1000;
+  const sunsetTime = new Date(sunset).toLocaleTimeString("de-DE", {
+    hour: "2-digit",
+    minute: "2-digit",
+  });
+  console.log(sunsetTime);
+
   // * Main-Info-Box betexten:
   mainInfoOutput.innerHTML = `
           <p>${new Date().toLocaleDateString()} | ${new Date().toLocaleTimeString(
@@ -109,6 +126,9 @@ const fetchWeatherData = (weatherData) => {
           `
         : ""
     }
+
+    <p>Sonnenaufgang: ${sunriseTime}</p>
+    <p>Sonnenuntergang: ${sunsetTime}</p>
     `;
 };
 

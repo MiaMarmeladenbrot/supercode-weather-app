@@ -74,6 +74,15 @@ form {
   margin-bottom: 30px;
 }
 
+/* # Select verstecken, bis auf Button geklickt wurde und dann options anzeigen */
+/* #city-options {
+  display: none;
+}
+
+.show {
+  display: block;
+} */
+
 /* ! Main Info Box */
 .main-info {
   display: flex;
