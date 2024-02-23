@@ -25,8 +25,8 @@ html {
   height: 100vh;
   background: url(../img/summer-hiking-man.png) 105% bottom no-repeat;
   background-size: 70%;
-  /* background-color: #f5fafe; */
-  background-color: #d6e6fb;
+  background-color: #f5fafe;
+  /* background-color: #d6e6fb; */
   /* background-color: #eaf3fa; */
 }
 
@@ -82,18 +82,6 @@ form {
   color: #29589b;
 }
 
-/* submit {
-  font-size: 1.5rem;
-  background-color: white;
-  color: #29589b;
-  border: none;
-  border-radius: 10px;
-  padding: 10px 20px;
-  cursor: pointer;
-
-  margin-bottom: 30px;
-} */
-
 select {
   display: none;
   width: 200px;
@@ -114,7 +102,10 @@ select {
 
 .error-message {
   color: #ec7d2b;
-  margin: 10px;
+  /* margin: 10px; */
+
+  /* width: 19ch; */
+  /* text-align: center; */
 }
 
 /* ! Section für den Output */
@@ -143,16 +134,28 @@ select {
 }
 
 .advice-message {
-  background-color: #bfe2a767;
-  border-radius: 10px;
-  padding: 10px;
+  /* border-radius: 10px;
+  padding: 10px; */
   margin-top: 10px;
+  /* width: 50ch; */
 }
 
 .advice-message p {
-  color: #81b378;
-  margin-top: 20px;
+  /* color: #81b378; */
+  margin-bottom: 0;
   font-size: clamp(2rem, 2.8vw, 3rem);
-  width: 18ch;
+  width: 19ch;
   text-align: center;
+  padding: 10px;
+  border-radius: 10px;
+}
+
+.green {
+  color: #81b378;
+  background-color: #bfe2a790;
+}
+
+.red {
+  color: #ec7d2b;
+  background-color: #f8964672;
 }

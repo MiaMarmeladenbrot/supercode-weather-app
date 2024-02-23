@@ -19,7 +19,7 @@ const getUserData = (event) => {
 
   // * Fehlermeldung, falls nichts eingegeben:
   if (userInput.length === 0) {
-    errorMessage.innerHTML = `Bitte gib eine Stadt ein`;
+    errorMessage.innerHTML = `Bitte gib eine Stadt ein:`;
   }
 
   // * Geodaten fetchen mit User-Input, um City rauszubekommen (auf 5 begrenzt):
@@ -174,46 +174,46 @@ const fetchWeatherData = (weatherData) => {
   // * Ratschlag ins HTML schreiben, basierend auf den IDs der Wetterdaten:
   // id = rain
   if (weatherData.weather[0].id >= 500 && weatherData.weather[0].id <= 599) {
-    adviceMessage.innerHTML = `<p>Mit Regenjacke vermutlich okay</p>`;
+    adviceMessage.innerHTML = `<p class="green">Mit Regenjacke vermutlich okay</p>`;
     // console.log("läuft");
   } else if (
     // id = clear - few clouds
     weatherData.weather[0].id >= 800 &&
     weatherData.weather[0].id <= 802
   ) {
-    adviceMessage.innerHTML = `<p>Perfektes Wanderwetter - viel Spaß!</p>`;
+    adviceMessage.innerHTML = `<p class="green">Perfektes Wanderwetter, viel Spaß!</p>`;
   } else if (
     // id = clouds
     weatherData.weather[0].id >= 803 &&
     weatherData.weather[0].id <= 804
   ) {
-    adviceMessage.innerHTML = `<p>Die paar Wolken sind doch kein Problem!</p>`;
+    adviceMessage.innerHTML = `<p class="green">Die paar Wolken sind doch kein Problem!</p>`;
   } else if (
     // id = snow
     weatherData.weather[0].id >= 600 &&
     weatherData.weather[0].id <= 699
   ) {
-    adviceMessage.innerHTML = `<p>Mit warmer Kleidung vermutlich okay</p>`;
+    adviceMessage.innerHTML = `<p class="green">Mit warmer Kleidung vermutlich okay</p>`;
   } else if (
     // id = thunderstorm
     weatherData.weather[0].id >= 200 &&
     weatherData.weather[0].id <= 299
   ) {
-    adviceMessage.innerHTML = `<p>Heute lieber ab auf die Couch</p>`;
+    adviceMessage.innerHTML = `<p class="red">Viel zu stürmisch - ab auf die Couch!</p>`;
   } else if (
     // id = drizzle
     weatherData.weather[0].id >= 300 &&
     weatherData.weather[0].id <= 399
   ) {
-    adviceMessage.innerHTML = `<p>Unbedingt Regenjacke mitnehmen</p>`;
+    adviceMessage.innerHTML = `<p class="green">Ohne Regenjacke eventuell bisschen unangenehm</p>`;
   } else if (
     // id = atmosphere
     weatherData.weather[0].id >= 700 &&
     weatherData.weather[0].id <= 799
   ) {
-    adviceMessage.innerHTML = `<p>Heute sieht's eher nach einem Couch-Tag aus</p>`;
+    adviceMessage.innerHTML = `<p class="red">Da liegt was in der Luft, bleib lieber zu Haus ...</p>`;
   } else {
-    adviceMessage.innerHTML = `<p>Da kann ich leider nichts empfehlen</p>`;
+    adviceMessage.innerHTML = `<p class="red">Da kann ich leider nichts empfehlen</p>`;
   }
 };
 
