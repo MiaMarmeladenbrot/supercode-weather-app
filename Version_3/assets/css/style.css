@@ -61,8 +61,9 @@ form {
   color: #396fc1;
   width: 200px;
   border: none;
-  padding: 5px;
+  padding: 5px 10px;
   border: 1px solid #396fc1;
+  border-radius: 10px;
 }
 
 #submit {
@@ -77,20 +78,25 @@ form {
   margin-bottom: 30px;
 }
 
-/* # Select verstecken, bis auf Button geklickt wurde und dann options anzeigen */
 select {
   display: none;
   width: 200px;
   background-color: rgb(255, 254, 254);
   color: #396fc1;
-  padding: 10px;
+  padding: 5px 10px;
   border-top: 1px solid #396fc1;
   overflow-y: auto;
   border: none;
+  border-radius: 10px;
 }
 
 .show {
   display: block;
+}
+
+.error-message {
+  color: rgb(244, 211, 77);
+  margin: 10px;
 }
 
 /* ! Main Info Box */

@@ -1,13 +1,11 @@
-// # VERSION 3b
+// # VERSION 3: input-Feld mit select-Options
 
 // ! HTML Elemente:
-const weatherDataOutput = document.querySelector(".weather-data-output");
 const mainInfoOutput = document.querySelector(".main-info");
 const moreInfoOutput = document.querySelector(".more-info");
 const optionsOutput = document.querySelector("#city-options");
 const errorMessage = document.querySelector(".error-message");
-const submitBtn = document.querySelector("#submit");
-const form = document.querySelector("form");
+// const form = document.querySelector("form");
 
 // ! Funktion, um den User-Input-Value und die ausgewählte Stadt in die options weiterzugeben:
 const getUserData = (event) => {
