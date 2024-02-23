@@ -24,7 +24,7 @@ const getUserData = (event) => {
 
   // * Geodaten fetchen mit User-Input, um City rauszubekommen (auf 5 begrenzt):
   fetch(
-    `http://api.openweathermap.org/geo/1.0/direct?q=${userInput}&limit=5&lang=de&appid=4d391bfa015027f6dda47c22088a30a6`
+    `https://api.openweathermap.org/geo/1.0/direct?q=${userInput}&limit=5&lang=de&appid=4d391bfa015027f6dda47c22088a30a6`
   )
     .then((res) => res.json())
     .then(
