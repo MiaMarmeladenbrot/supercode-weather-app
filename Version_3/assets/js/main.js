@@ -41,7 +41,7 @@ const getUserData = (event) => {
 const getOptions = (cities) => {
   // * über Geo-Fetch-Daten des User-Inputs iterieren, um alle gefetchten Suchergebnisse des User-Inputs zu durchlaufen:
   cities.forEach((city) => {
-    console.log(city);
+    // console.log(city);
 
     // * option-Elemente im select-Output erstellen und mit Name und Land des Suchergebnisses befüllen:
     const optionElement = document.createElement("option");
@@ -58,8 +58,15 @@ const getOptions = (cities) => {
       getWeatherData(lat, lon);
     };
 
-    // * Event Listener, sobald auf Option geklickt wird, soll getLatLon ausgeführt werden, sollen also die Wetterdaten für die ausgewählte Stadt angezeigt werden:
-    optionElement.addEventListener("click", getLatLon);
+    // * Event Listener: sobald auf eine Option geklickt wird, sollen ...
+    // optionElement.addEventListener("click", getLatLon);
+    optionElement.addEventListener("click", () => {
+      // * ... die anderen Optionen verschwinden
+      optionsOutput.classList.remove("show");
+
+      // * ... und via Funktionsaufruf die Wetterdaten für die ausgewählte Stadt angezeigt werden:
+      getLatLon();
+    });
   });
 };
 
