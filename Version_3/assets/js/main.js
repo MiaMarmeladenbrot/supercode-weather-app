@@ -84,28 +84,43 @@ getWeatherData();
 // ! Funktion, um die gefetchten Wetterdaten ins HTML zu schreiben:
 const fetchWeatherData = (weatherData) => {
   // * Sonnenauf- und -untergang berechnen:
-  let timezone = weatherData.timezone;
-  let sunrise = weatherData.sys.sunrise;
-  let sunriseTime = moment
-    .utc(sunrise, "X")
-    .add(timezone, "seconds")
-    .format("HH:mm");
+  console.log(weatherData.sys.sunrise);
+  const sunrise = new Date(
+    (weatherData.sys.sunrise + weatherData.timezone) * 1000
+  );
+  const sunriseHours =
+    sunrise.getHours() < 10 ? `0${sunrise.getHours()}` : sunrise.getHours();
+  const sunriseMinutes =
+    sunrise.getMinutes() < 10
+      ? `0${sunrise.getMinutes()}`
+      : sunrise.getMinutes();
+  console.log(sunriseHours, sunriseMinutes);
 
-  let sunset = weatherData.sys.sunset;
-  let sunsetTime = moment
-    .utc(sunset, "X")
-    .add(timezone, "seconds")
-    .format("HH:mm");
+  const sunset = new Date(
+    (weatherData.sys.sunset + weatherData.timezone) * 1000
+  );
+  const sunsetHours =
+    sunset.getHours() < 10 ? `0${sunset.getHours()}` : sunset.getHours();
+  const sunsetMinutes =
+    sunset.getMinutes() < 10 ? `0${sunset.getMinutes()}` : sunset.getMinutes();
+  console.log(sunsetHours, sunsetMinutes);
+
+  // * Zeit und Datum jeweils an ausgewählte Stadt anpassen:
+  console.log(weatherData.dt);
+  console.log(weatherData);
+  const dt = new Date((weatherData.dt + weatherData.timezone) * 1000);
+  const localDay = dt.getDate();
+  const localMonth = dt.getMonth() + 1;
+  const localYear = dt.getFullYear();
+
+  const localHours = dt.getHours();
+  const localMinutes = dt.getMinutes();
 
   // * Main-Info-Box betexten:
   mainInfoOutput.innerHTML = `
-          <p>${new Date().toLocaleDateString()} | ${new Date().toLocaleTimeString(
-    "de-DE",
-    {
-      hour: "2-digit",
-      minute: "2-digit",
-    }
-  )}</p>
+  <p>${localDay}.${localMonth}.${localYear} | ${
+    localHours < 10 ? `0${localHours}` : localHours
+  }:${localMinutes < 10 ? `0${localMinutes}` : localMinutes}</p>
   <h3>${weatherData.name} (${weatherData.sys.country})</h3>
   <img src="https://openweathermap.org/img/wn/${
     weatherData.weather[0].icon
@@ -139,8 +154,8 @@ const fetchWeatherData = (weatherData) => {
           `
         : ""
     }
-    <p>Sonnenaufgang: ${sunriseTime}</p>
-    <p>Sonnenuntergang: ${sunsetTime}</p>
+    <p>Sonnenaufgang: ${sunriseHours}:${sunriseMinutes}</p>
+    <p>Sonnenuntergang: ${sunsetHours}:${sunsetMinutes}</p>
   
     `;
 };
@@ -154,22 +169,3 @@ input.addEventListener("input", () => {
   // Funktionsaufruf, um User-Daten auszugeben:
   getUserData(event);
 });
-
-// #######
-// // * Sunrise und Sunset in Uhrzeit umwandeln (deutsche Ausgabe mit 2 Ziffern für h und m):
-// const sunrise = weatherData.sys.sunrise * 1000;
-// const sunriseTime = new Date(sunrise).toLocaleTimeString("de-DE", {
-//   hour: "2-digit",
-//   minute: "2-digit",
-// });
-// // console.log(sunriseTime);
-
-// const sunset = weatherData.sys.sunset * 1000;
-// const sunsetTime = new Date(sunset).toLocaleTimeString("de-DE", {
-//   hour: "2-digit",
-//   minute: "2-digit",
-// });
-// // console.log(sunsetTime);
-
-// <p>Sonnenaufgang: ${sunriseTime}</p>
-// <p>Sonnenuntergang: ${sunsetTime}</p>
