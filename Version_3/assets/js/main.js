@@ -219,9 +219,11 @@ const fetchWeatherData = (weatherData) => {
 
 // * Event Listener auf dem Input-Feld, um die User-Suchergebnisse direkt darunter auszugeben:
 const input = document.querySelector("#city-input");
-input.addEventListener("keyup", () => {
+input.addEventListener("input", () => {
   // Select-Element immer zuerst leeren, damit es sich überschreibt:
   optionsOutput.innerHTML = "";
   // Funktionsaufruf, um User-Daten auszugeben:
   getUserData(event);
 });
+// # EventListener auf das Event input funktioniert in dieser Form nicht für mobile, stattdessen keyup?
+// https://stackoverflow.com/questions/41234395/how-do-i-listen-for-input-events-on-mobile-browsers
