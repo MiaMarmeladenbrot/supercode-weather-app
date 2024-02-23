@@ -218,7 +218,6 @@ const fetchWeatherData = (weatherData) => {
 };
 
 // * Event Listener auf dem Input-Feld, um die User-Suchergebnisse direkt darunter auszugeben:
-// form.addEventListener("submit", getUserData);
 const input = document.querySelector("#city-input");
 input.addEventListener("input", () => {
   // Select-Element immer zuerst leeren, damit es sich überschreibt:

@@ -1,3 +1,4 @@
+/* ! Schriften */
 @font-face {
   font-family: Overpass;
   src: url(../font/Overpass-VariableFont_wght.ttf);
@@ -15,23 +16,36 @@ html {
 }
 
 .wrapper {
-  padding: 2vw;
-  background: linear-gradient(-135deg, #47bfdf 0%, #4a91ff 90%);
-  color: white;
+  padding: 3vw;
+
   font-family: Overpass, Arial, Helvetica, sans-serif;
 
-  max-width: 700px;
+  max-width: 1440px;
   margin: 0 auto;
+
+  height: 100vh;
+  background: url(../img/summer-hiking-man.png) 105% bottom no-repeat;
+  background-size: 70%;
+  background-color: #f5fafe;
+  /* background-color: #d6e6fb; */
+  /* background-color: #eaf3fa; */
+}
+
+h1 {
+  font-size: clamp(3rem, 4vw, 5rem);
+  margin-bottom: 20px;
+  color: #1c4689;
 }
 
 h2 {
   font-size: clamp(3rem, 4vw, 4.8rem);
   margin-bottom: 10px;
+  color: #1c4689;
 }
 
 h3 {
   font-size: clamp(2.5rem, 3.3vw, 4rem);
-  /* margin-bottom: 10px; */
+  color: #1c4689;
 }
 
 h4 {
@@ -43,84 +57,99 @@ p,
 a {
   font-size: clamp(2rem, 2vw, 2rem);
   margin-bottom: 10px;
-}
-/* ! Header */
-header {
-  /* height: 100vh; */
-  text-align: center;
+  color: #1c4689;
 }
 
+/* ! Header */
+.error-message {
+  color: #ec7d2b;
+}
 /* ! Input Form für Stadt */
 form {
   display: flex;
   flex-direction: column;
   align-items: center;
+
+  width: 70ch;
+  position: relative;
 }
 
 #city-input {
-  color: #396fc1;
+  color: #29589b;
   width: 200px;
   border: none;
   padding: 5px 10px;
-  border: 1px solid #396fc1;
+  border: 1px solid #29589b;
   border-radius: 10px;
 }
 
-#submit {
-  font-size: 1.5rem;
-  background-color: white;
-  color: #444e72;
-  border: none;
-  border-radius: 10px;
-  padding: 10px 20px;
-  cursor: pointer;
-
-  margin-bottom: 30px;
+::placeholder {
+  color: #29589b;
 }
 
 select {
   display: none;
   width: 200px;
-  background-color: rgb(255, 254, 254);
-  color: #396fc1;
+  color: #29589b;
   padding: 5px 10px;
-  border-top: 1px solid #396fc1;
+  border-top: 1px solid #29589b;
   overflow-y: auto;
   border: none;
   border-radius: 10px;
+
+  position: absolute;
+  top: 3rem;
 }
 
 .show {
   display: block;
 }
 
-.error-message {
-  color: rgb(244, 211, 77);
-  margin: 10px;
-}
-
-/* ! Main Info Box */
-.main-info {
+/* ! Section für den Output */
+.output {
   display: flex;
   flex-direction: column;
   align-items: center;
-  border-radius: 10px;
-  background-color: #ffffff70;
-  padding: 20px 0 10px 0;
-  margin: 0 5vw 20px 5vw;
+
+  width: 70ch;
 }
 
-img {
-  display: block;
+.flex {
+  display: flex;
+  align-items: flex-end;
+  gap: 8rem;
 }
 
-/* ! More Info Box */
+.weather-data-output p:first-of-type {
+  margin-top: 2rem;
+}
+
+.weather-data-output,
+.main-info,
 .more-info {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+  text-align: center;
+}
+
+.advice-message {
+  margin-top: 10px;
+}
+
+.advice-message p {
+  margin-bottom: 0;
+  margin-top: 10px;
+  font-size: clamp(2rem, 2.8vw, 3rem);
+  width: 19ch;
+  text-align: center;
+  padding: 10px;
   border-radius: 10px;
-  background-color: #ffffff70;
-  padding: 20px 0 10px 0;
-  margin: 0 5vw 20px 5vw;
+}
+
+.green {
+  color: #81b378;
+  background-color: #bfe2a790;
+}
+
+.red {
+  color: #ec7d2b;
+  background-color: #f8964672;
 }
