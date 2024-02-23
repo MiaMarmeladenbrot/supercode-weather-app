@@ -4,35 +4,46 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Weather App - Version 3</title>
-    <link rel="stylesheet" href="./assets/css/style.css" />
+    <!-- <link rel="stylesheet" href="./assets/css/style.css" /> -->
+    <link rel="stylesheet" href="./assets/css/start.css" />
   </head>
   <body>
     <article class="wrapper">
       <header>
         <!-- ! Input-Formular mit select options -->
         <form>
-          <input type="text" id="city-input" />
+          <h1>Und wie ist das Wetter bei dir?</h1>
+
+          <input
+            type="text"
+            id="city-input"
+            placeholder="Such nach deiner Stadt"
+          />
           <select
             name="city-options"
             multiple
             size="5"
             id="city-options"
           ></select>
-          <!-- <input type="submit" value="Check Weather" id="submit" /> -->
+          <!--* <input type="submit" value="Check Weather" id="submit" /> -->
         </form>
         <p class="error-message"></p>
 
         <!-- ! Wetterdaten Output - aus JS importiert -->
-        <section class="weather-data-output">
-          <!-- Container für Haupt-Infos -->
-          <article class="main-info"></article>
 
-          <!-- Tabelle für weitere Infos -->
-          <article class="more-info"></article>
+        <section class="output">
+          <!-- * Container für Stadt, Datum, Zeit -->
+          <section class="weather-data-output"></section>
+          <!--* Container für Haupt-Infos -->
+          <section class="flex">
+            <article class="main-info"></article>
+
+            <!--* Container für weitere Infos -->
+            <article class="more-info"></article>
+          </section>
         </section>
       </header>
     </article>
-    <script src="https://momentjs.com/downloads/moment.js"></script>
 
     <script src="./assets/js/main.js"></script>
   </body>

@@ -1,6 +1,7 @@
 // # VERSION 3: input-Feld mit select-Options
 
 // ! HTML Elemente:
+const weatherDataOutput = document.querySelector(".weather-data-output");
 const mainInfoOutput = document.querySelector(".main-info");
 const moreInfoOutput = document.querySelector(".more-info");
 const optionsOutput = document.querySelector("#city-options");
@@ -45,6 +46,7 @@ const getOptions = (cities) => {
     const optionElement = document.createElement("option");
     optionElement.textContent = `${city.name} | ${city.country}`;
     optionsOutput.classList.add("show");
+    errorMessage.innerHTML = "";
     optionsOutput.appendChild(optionElement);
 
     // * Latitude und Longitude der gesuchten Stadt weitergeben an Funktion getWeatherData beim Klick auf die Stadt in den options:
@@ -83,45 +85,58 @@ getWeatherData();
 
 // ! Funktion, um die gefetchten Wetterdaten ins HTML zu schreiben:
 const fetchWeatherData = (weatherData) => {
-  // * Sonnenauf- und -untergang berechnen:
-  console.log(weatherData.sys.sunrise);
+  console.log(weatherData);
+
+  // * Sonnenauf- und -untergang als Uhrzeit ausgeben (mit 0, falls Zahl<10):
+  // -1, weil Sommerzeit/Winterzeit-Problematik
+  // console.log(weatherData.sys.sunrise);
   const sunrise = new Date(
     (weatherData.sys.sunrise + weatherData.timezone) * 1000
   );
   const sunriseHours =
-    sunrise.getHours() < 10 ? `0${sunrise.getHours()}` : sunrise.getHours();
+    sunrise.getHours() - 1 < 10
+      ? `0${sunrise.getHours() - 1}`
+      : sunrise.getHours() - 1;
   const sunriseMinutes =
     sunrise.getMinutes() < 10
       ? `0${sunrise.getMinutes()}`
       : sunrise.getMinutes();
-  console.log(sunriseHours, sunriseMinutes);
+  // console.log(sunriseHours, sunriseMinutes);
 
   const sunset = new Date(
     (weatherData.sys.sunset + weatherData.timezone) * 1000
   );
   const sunsetHours =
-    sunset.getHours() < 10 ? `0${sunset.getHours()}` : sunset.getHours();
+    sunset.getHours() - 1 < 10
+      ? `0${sunset.getHours() - 1}`
+      : sunset.getHours() - 1;
   const sunsetMinutes =
     sunset.getMinutes() < 10 ? `0${sunset.getMinutes()}` : sunset.getMinutes();
-  console.log(sunsetHours, sunsetMinutes);
+  // console.log(sunsetHours, sunsetMinutes);
 
-  // * Zeit und Datum jeweils an ausgewählte Stadt anpassen:
-  console.log(weatherData.dt);
-  console.log(weatherData);
+  // * Zeit und Datum jeweils an ausgewählte Stadt anpassen (mit 0, falls Zahl<10):
+  // -1, weil Sommerzeit/Winterzeit-Problematik
+  // console.log(weatherData.dt);
+  // console.log(weatherData);
   const dt = new Date((weatherData.dt + weatherData.timezone) * 1000);
   const localDay = dt.getDate();
   const localMonth = dt.getMonth() + 1;
   const localYear = dt.getFullYear();
 
-  const localHours = dt.getHours();
-  const localMinutes = dt.getMinutes();
+  const localHours =
+    dt.getHours() - 1 < 10 ? `0${dt.getHours() - 1}` : dt.getHours() - 1;
+  const localMinutes =
+    dt.getMinutes() < 10 ? `0${dt.getMinutes()}` : dt.getMinutes();
 
   // * Main-Info-Box betexten:
-  mainInfoOutput.innerHTML = `
-  <p>${localDay}.${localMonth}.${localYear} | ${
-    localHours < 10 ? `0${localHours}` : localHours
-  }:${localMinutes < 10 ? `0${localMinutes}` : localMinutes}</p>
+
+  weatherDataOutput.innerHTML = `
+  <div>
+  <p>${localDay}.${localMonth}.${localYear} | ${localHours}:${localMinutes}</p>
   <h3>${weatherData.name} (${weatherData.sys.country})</h3>
+  </div>`;
+
+  mainInfoOutput.innerHTML = `
   <img src="https://openweathermap.org/img/wn/${
     weatherData.weather[0].icon
   }@2x.png">
@@ -132,30 +147,26 @@ const fetchWeatherData = (weatherData) => {
 
   // * kleineres Feld mit weiteren Infos betexten, sofern sie im json vorhanden sind:
   moreInfoOutput.innerHTML = `
-    ${
-      weatherData.rain
-        ? `<p>Niederschlagsintensität: ${weatherData.rain["1h"]} mm/h</p>`
-        : ""
-    }
+    ${weatherData.rain ? `<p>🌧️ ${weatherData.rain["1h"]} mm/h</p>` : ""}
     ${
       weatherData.wind.speed
-        ? `<p>Wind: ${Math.round(weatherData.wind.speed * 3.6)} km/h</p>`
+        ? `<p>💨 ${Math.round(weatherData.wind.speed * 3.6)} km/h</p>`
         : ""
     }
     ${
       weatherData.wind.gust
-        ? `<p>Böen: ${Math.round(weatherData.wind.gust * 3.6)} km/h</p>`
+        ? `<p>🌬️ ${Math.round(weatherData.wind.gust * 3.6)} km/h</p>`
         : ""
     }
 
     ${
       weatherData.main.humidity
-        ? `<p>Luftfeuchtigkeit: ${weatherData.main.humidity} %</p>
+        ? `<p>🌡️ ${weatherData.main.humidity} %</p>
           `
         : ""
     }
-    <p>Sonnenaufgang: ${sunriseHours}:${sunriseMinutes}</p>
-    <p>Sonnenuntergang: ${sunsetHours}:${sunsetMinutes}</p>
+    <p>☀️ ${sunriseHours}:${sunriseMinutes}</p>
+    <p>☀️ ${sunsetHours}:${sunsetMinutes}</p>
   
     `;
 };
