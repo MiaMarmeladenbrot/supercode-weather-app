@@ -7,7 +7,6 @@ const moreInfoOutput = document.querySelector(".more-info");
 const optionsOutput = document.querySelector("#city-options");
 const errorMessage = document.querySelector(".error-message");
 const adviceMessage = document.querySelector(".advice-message");
-// const form = document.querySelector("form");
 
 // ! Funktion, um den User-Input-Value und die ausgewählte Stadt in die options weiterzugeben:
 const getUserData = (event) => {
@@ -22,24 +21,21 @@ const getUserData = (event) => {
     errorMessage.innerHTML = `Bitte gib eine Stadt ein:`;
   }
 
-  // * Geodaten fetchen mit User-Input, um City rauszubekommen (auf 5 begrenzt):
+  // * Geodaten fetchen mit User-Input, um gesuchten Ort rauszubekommen (auf 5 begrenzt):
   fetch(
     `https://api.openweathermap.org/geo/1.0/direct?q=${userInput}&limit=5&lang=de&appid=4d391bfa015027f6dda47c22088a30a6`
   )
     .then((res) => res.json())
-    .then(
-      (cities) =>
-        // * Funktionsaufruf, um gefundenen Suchergebnisse als Optionen auszugeben:
-        getOptions(cities)
-      // .catch((err) =>
-      //   console.log("fehler beim GeoDaten fetchen", err)
-      // )
-    );
+    .then((cities) =>
+      // * Funktionsaufruf, um gefundene Suchergebnisse als Select-Optionen auszugeben:
+      getOptions(cities)
+    )
+    .catch((err) => console.log("Fehler beim GeoDaten-Fetchen", err));
 };
 
-// ! Funktion, um die gefundenen Suchergebnisse via select/option anzeigen zu lassen
+// ! Funktion, um die gefundenen Suchergebnisse via select/option anzeigen zu lassen:
 const getOptions = (cities) => {
-  // * über Geo-Fetch-Daten des User-Inputs iterieren, um alle gefetchten Suchergebnisse des User-Inputs zu durchlaufen:
+  // * über gefetchte Geo-Daten des User-Inputs (getUserData()) iterieren, um alle gefetchten Suchergebnisse des User-Inputs zu durchlaufen:
   cities.forEach((city) => {
     // console.log(city);
 
@@ -50,23 +46,17 @@ const getOptions = (cities) => {
     errorMessage.innerHTML = "";
     optionsOutput.appendChild(optionElement);
 
-    // * Latitude und Longitude der gesuchten Stadt weitergeben an Funktion getWeatherData beim Klick auf die Stadt in den options:
-    const getLatLon = () => {
+    // * Event Listener: sobald auf eine Option geklickt wird, sollen ...
+    optionElement.addEventListener("click", () => {
+      // * ... die anderen Optionen verschwinden:
+      optionsOutput.classList.remove("show");
+
+      // * ... und mithilfe der Latitude und Longitude der ausgewählten Stadt soll die Funktion getWeatherData () aufgerufen werden, um die Wetterdaten für die gewählte Stadt auszugeben:
       const lat = city.lat;
       const lon = city.lon;
 
       // console.log(lat, lon);
       getWeatherData(lat, lon);
-    };
-
-    // * Event Listener: sobald auf eine Option geklickt wird, sollen ...
-    // optionElement.addEventListener("click", getLatLon);
-    optionElement.addEventListener("click", () => {
-      // * ... die anderen Optionen verschwinden
-      optionsOutput.classList.remove("show");
-
-      // * ... und via Funktionsaufruf die Wetterdaten für die ausgewählte Stadt angezeigt werden:
-      getLatLon();
     });
   });
 };
@@ -75,6 +65,7 @@ const getOptions = (cities) => {
 // mit festen lat- und lon-Werten, um Münchner-Wetter als default auszugeben:
 const getWeatherData = (lat = 48.137154, lon = 11.576124) => {
   fetch(
+    // * Fetch mit variablen Latitude- und Longitude-Werten, um die Daten der jeweils gesuchten Stadt anzuzeigen:
     `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=4d391bfa015027f6dda47c22088a30a6&units=metric&lang=de`
   )
     .then((res) => res.json())
@@ -119,14 +110,15 @@ const fetchWeatherData = (weatherData) => {
       ? `0${sunset.getUTCMinutes()}`
       : sunset.getUTCMinutes();
 
-  // * Zeit und Datum jeweils an ausgewählte Stadt anpassen (mit 0, falls Zahl<10):
+  // * aktuelle Zeit und Datum jeweils an ausgewählte Stadt anpassen (mit 0, falls Zahl<10):
+  // dt = Time of data calculation, unix, UTC
   const dt = new Date((weatherData.dt + weatherData.timezone) * 1000);
   const localDay = dt.getDate();
   const localMonth = dt.getMonth() + 1;
   const localYear = dt.getFullYear();
 
   const localHours =
-    dt.getUTCHours() - 1 < 10 ? `0${dt.getUTCHours()}` : dt.getUTCHours();
+    dt.getUTCHours() < 10 ? `0${dt.getUTCHours()}` : dt.getUTCHours();
   const localMinutes =
     dt.getUTCMinutes() < 10 ? `0${dt.getUTCMinutes()}` : dt.getUTCMinutes();
 
@@ -205,7 +197,7 @@ const fetchWeatherData = (weatherData) => {
     weatherData.weather[0].id >= 300 &&
     weatherData.weather[0].id <= 399
   ) {
-    adviceMessage.innerHTML = `<p class="green">Ohne Regenjacke eventuell bisschen unangenehm</p>`;
+    adviceMessage.innerHTML = `<p class="green">Ohne Regenjacke evtl. bisschen unangenehm</p>`;
   } else if (
     // id = atmosphere
     weatherData.weather[0].id >= 700 &&
@@ -217,13 +209,16 @@ const fetchWeatherData = (weatherData) => {
   }
 };
 
-// * Event Listener auf dem Input-Feld, um die User-Suchergebnisse direkt darunter auszugeben:
+// ! Event Listener auf dem Input-Feld, um die User-Suchergebnisse direkt darunter auszugeben:
 const input = document.querySelector("#city-input");
 input.addEventListener("input", () => {
-  // Select-Element immer zuerst leeren, damit es sich überschreibt:
+  // Select-Element immer zuerst leeren, damit Options-Felder sich überschreiben, nicht ergänzen:
   optionsOutput.innerHTML = "";
-  // Funktionsaufruf, um User-Daten auszugeben:
+  // Funktionsaufruf, um User-Input zu kriegen und alles weitere loszutreten:
   getUserData(event);
 });
-// # EventListener auf das Event input funktioniert in dieser Form nicht für mobile, stattdessen keyup?
+
+// # EventListener auf das Event input funktioniert in dieser Form nicht für mobile, keyup und change haben auch nicht funktioniert
 // https://stackoverflow.com/questions/41234395/how-do-i-listen-for-input-events-on-mobile-browsers
+// https://stackoverflow.com/questions/17047497/difference-between-change-and-input-event-for-an-input-element/17047607#17047607
+// --> stattdessen noch eine Suchlupe neben das Eingabefeld setzen, mit keyup/input im Input-Feld nach dem Ort suchen, ihn aus Dropdown-Options auswählen und dann erst mit Klick auf Suchlupe Wetterdatenausgabe triggern?
