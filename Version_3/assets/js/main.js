@@ -1,4 +1,12 @@
 // # VERSION 3: input-Feld mit select-Options
+// * To Dos
+// - EventListener auf das Event input funktioniert in dieser Form nicht für mobile, keyup und change haben auch nicht funktioniert --> Tipp von Thomas ausprobieren, Article/Paragraph statt Select/Options
+// - Alternativ: noch eine Suchlupe neben das Eingabefeld setzen, mit keyup/input im Input-Feld nach dem Ort suchen, ihn aus Dropdown-Options auswählen und dann erst mit Klick auf Suchlupe Wetterdatenausgabe triggern?
+// - 4. Version mit klassischem Wetter-App-Design machen
+// - footer mit credits
+
+// # Plus- und Minus-Grade bei den Ratschlägen mit berücksichtigen
+// # Media Queries hinzufügen
 
 // ! HTML Elemente:
 const weatherDataOutput = document.querySelector(".weather-data-output");
@@ -217,11 +225,3 @@ input.addEventListener("input", () => {
   // Funktionsaufruf, um User-Input zu kriegen und alles weitere loszutreten:
   getUserData(event);
 });
-
-// # EventListener auf das Event input funktioniert in dieser Form nicht für mobile, keyup und change haben auch nicht funktioniert
-// https://stackoverflow.com/questions/41234395/how-do-i-listen-for-input-events-on-mobile-browsers
-// https://stackoverflow.com/questions/17047497/difference-between-change-and-input-event-for-an-input-element/17047607#17047607
-// --> stattdessen noch eine Suchlupe neben das Eingabefeld setzen, mit keyup/input im Input-Feld nach dem Ort suchen, ihn aus Dropdown-Options auswählen und dann erst mit Klick auf Suchlupe Wetterdatenausgabe triggern?
-
-// # Plus- und Minus-Grade bei den Ratschlägen mit berücksichtigen
-// # Media Queries hinzufügen

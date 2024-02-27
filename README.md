@@ -2,7 +2,8 @@
 
 ## Task
 
-- Create a weather app using your own design.
+- Create a weather app using the [Open Weather API](https://openweathermap.org/).
+- Make your own design.
 
 ## Live Site
 
