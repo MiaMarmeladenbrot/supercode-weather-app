@@ -11,15 +11,16 @@
       <header>
         <h1>Ist bei dir heute Wanderwetter?</h1>
         <p class="error-message"></p>
-        <section class="flex-center">
+        <section class="flex-start">
           <article>
             <!-- ! Input-Formular mit select options -->
             <form>
               <input
                 type="text"
                 id="city-input"
-                placeholder="Such nach deiner Stadt"
+                placeholder="Such nach deiner Stadt ..."
               />
+              <p class="ratschlag">... und erhalte einen Ratschlag!</p>
 
               <select
                 name="city-options"
@@ -31,28 +32,29 @@
 
             <!-- ! Wetterdaten Output - aus JS importiert -->
             <section class="output">
-              <!-- * Container für Ratschlag basierend auf Wetter-ID -->
-              <div class="advice-message"></div>
-
               <!-- * Container für Stadt, Datum, Zeit -->
               <section class="weather-data-output"></section>
 
-              <section class="flex-end">
+              <section class="flex-center">
                 <!--* Container für Haupt-Infos -->
                 <article class="main-info"></article>
 
                 <!--* Container für weitere Infos -->
                 <article class="more-info"></article>
               </section>
+              <!-- * Container für Ratschlag basierend auf Wetter-ID -->
+              <div class="advice-message"></div>
             </section>
           </article>
-          <img
-            src="./assets/img/summer-hiking-man.png"
-            alt="Illustration of hiker in the summer"
-          />
+          <div class="advice-img">
+            <img
+              src="./assets/img/summer-hiking-man.png"
+              alt="Illustration of hiker in the summer"
+            />
+          </div>
         </section>
         <!-- <p>© Ann-Marie Mecklenburg</p>
-        <p>Illustration ©</p> -->
+        <p>Illustration © https://www.freepik.com/free-vector/active-tourist-hiking-mountain-man-wearing-backpack-enjoying-trekking-looking-snowcapped-peaks-vector-illustration-nature-wilderness-adventure-travel-concept_10606146.htm#query=hike&position=9&from_view=author&uuid=32ff2745-582b-4ffb-b702-1c4c7687e341</p> -->
       </header>
     </article>
 

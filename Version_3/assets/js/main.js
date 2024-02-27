@@ -2,6 +2,7 @@
 // * To Dos
 // - EventListener auf das Event input funktioniert in dieser Form nicht für mobile, keyup und change haben auch nicht funktioniert --> Tipp von Thomas ausprobieren, Article/Paragraph statt Select/Options
 // - Alternativ: noch eine Suchlupe neben das Eingabefeld setzen, mit keyup/input im Input-Feld nach dem Ort suchen, ihn aus Dropdown-Options auswählen und dann erst mit Klick auf Suchlupe Wetterdatenausgabe triggern?
+// - weitere Illus suchen, um sie bei Ratschlägen auszugeben: https://www.freepik.com/author/pch-vector
 // - 4. Version mit klassischem Wetter-App-Design machen
 // - footer mit credits
 // - Plus- und Minus-Grade bei den Ratschlägen mit berücksichtigen
@@ -13,6 +14,7 @@ const moreInfoOutput = document.querySelector(".more-info");
 const optionsOutput = document.querySelector("#city-options");
 const errorMessage = document.querySelector(".error-message");
 const adviceMessage = document.querySelector(".advice-message");
+const adviceImg = document.querySelector(".advice-img");
 
 // ! Funktion, um den User-Input-Value und die ausgewählte Stadt in die options weiterzugeben:
 const getUserData = (event) => {
@@ -79,7 +81,7 @@ const getWeatherData = (lat = 48.137154, lon = 11.576124) => {
     .then((data) => fetchWeatherData(data));
 };
 
-// getWeatherData();
+// getWeatherData(); //--> auskommentiert, damit zu Beginn doch eine leere Seite angezeigt wird
 
 // ! Funktion, um die gefetchten Wetterdaten ins HTML zu schreiben:
 const fetchWeatherData = (weatherData) => {
@@ -128,6 +130,9 @@ const fetchWeatherData = (weatherData) => {
   const localMinutes =
     dt.getUTCMinutes() < 10 ? `0${dt.getUTCMinutes()}` : dt.getUTCMinutes();
 
+  // * Ratschlag-p-Tag leeren:
+  document.querySelector(".ratschlag").classList.add("hide");
+
   // * Weather-Data-Box betexten:
   weatherDataOutput.innerHTML = `
   <div>
@@ -170,7 +175,7 @@ const fetchWeatherData = (weatherData) => {
   
     `;
 
-  // * Ratschlag ins HTML schreiben, basierend auf den IDs der Wetterdaten:
+  // * Ratschlag ins HTML schreiben zusammen mit passendem Bild, basierend auf den IDs der Wetterdaten:
   // id = rain
   if (weatherData.weather[0].id >= 500 && weatherData.weather[0].id <= 599) {
     adviceMessage.innerHTML = `<p class="green">Mit Regenjacke vermutlich okay</p>`;
@@ -210,6 +215,7 @@ const fetchWeatherData = (weatherData) => {
     weatherData.weather[0].id <= 799
   ) {
     adviceMessage.innerHTML = `<p class="red">Da liegt was in der Luft, bleib lieber zu Haus ...</p>`;
+    adviceImg.innerHTML = `<img src="./assets/img/couch.png" alt="Illustration of woman sitting on a couch">`;
   } else {
     adviceMessage.innerHTML = `<p class="red">Da kann ich leider nichts empfehlen</p>`;
   }

@@ -114,6 +114,14 @@ select {
   display: block;
 }
 
+.ratschlag {
+  margin-top: 20px;
+}
+
+.hide {
+  display: none;
+}
+
 /* ! Section für den Output */
 .output {
   display: flex;
@@ -123,15 +131,15 @@ select {
   width: 70ch;
 }
 
-.flex-end {
-  display: flex;
-  align-items: flex-end;
-  gap: 8rem;
-}
-
 .flex-center {
   display: flex;
   align-items: center;
+  gap: 8rem;
+}
+
+.flex-start {
+  display: flex;
+  align-items: flex-start;
   /* gap: 1rem; */
 }
 
@@ -170,10 +178,10 @@ select {
 }
 
 /* ! Header IMG */
-header img {
+/* header img {
   width: 70%;
   object-fit: contain;
-}
+} */
 
 /* # Media Queries */
 /* # Media Queries Zwischengröße 1300px */
@@ -196,8 +204,9 @@ header img {
     text-align: center;
   }
 
-  .flex-center {
+  .flex-start {
     flex-direction: column;
+    align-items: center;
   }
 
   header img {
@@ -207,7 +216,7 @@ header img {
 
 /* # Media Queries Mobile 567px */
 @media only screen and (max-width: 567px) {
-  .flex-end {
+  .flex-center {
     gap: 3rem;
   }
 }
