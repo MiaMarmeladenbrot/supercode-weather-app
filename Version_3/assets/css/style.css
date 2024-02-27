@@ -23,9 +23,9 @@ html {
   max-width: 1440px;
   margin: 0 auto;
 
-  height: 100vh;
-  background: url(../img/summer-hiking-man.png) 105% bottom no-repeat;
-  background-size: 70%;
+  min-height: 100vh;
+  /* background: url(../img/summer-hiking-man.png) 105% bottom no-repeat;
+  background-size: 70%; */
   background-color: #f5fafe;
   /* background-color: #d6e6fb; */
   /* background-color: #eaf3fa; */
@@ -33,7 +33,7 @@ html {
 
 h1 {
   font-size: clamp(3rem, 4vw, 5rem);
-  margin-bottom: 20px;
+  /* margin-bottom: 20px; */
   color: #1c4689;
 }
 
@@ -60,10 +60,19 @@ a {
   color: #1c4689;
 }
 
+img {
+  max-width: 100%;
+}
+
 /* ! Header */
 .error-message {
   color: #ec7d2b;
 }
+
+/* header {
+  display: flex;
+} */
+
 /* ! Input Form für Stadt */
 form {
   display: flex;
@@ -114,10 +123,16 @@ select {
   width: 70ch;
 }
 
-.flex {
+.flex-end {
   display: flex;
   align-items: flex-end;
   gap: 8rem;
+}
+
+.flex-center {
+  display: flex;
+  align-items: center;
+  /* gap: 1rem; */
 }
 
 .weather-data-output p:first-of-type {
@@ -152,4 +167,47 @@ select {
 .red {
   color: #ec7d2b;
   background-color: #f8964672;
+}
+
+/* ! Header IMG */
+header img {
+  width: 70%;
+  object-fit: contain;
+}
+
+/* # Media Queries */
+/* # Media Queries Zwischengröße 1300px */
+@media only screen and (max-width: 1300px) {
+  header img {
+    width: 60%;
+  }
+}
+
+/* # Media Queries Zwischengröße 1100px */
+@media only screen and (max-width: 1100px) {
+  header img {
+    width: 50%;
+  }
+}
+
+/* # Media Queries Zwischengröße 860px */
+@media only screen and (max-width: 860px) {
+  h1 {
+    text-align: center;
+  }
+
+  .flex-center {
+    flex-direction: column;
+  }
+
+  header img {
+    width: 100%;
+  }
+}
+
+/* # Media Queries Mobile 567px */
+@media only screen and (max-width: 567px) {
+  .flex-end {
+    gap: 3rem;
+  }
 }

@@ -11,39 +11,48 @@
       <header>
         <h1>Ist bei dir heute Wanderwetter?</h1>
         <p class="error-message"></p>
+        <section class="flex-center">
+          <article>
+            <!-- ! Input-Formular mit select options -->
+            <form>
+              <input
+                type="text"
+                id="city-input"
+                placeholder="Such nach deiner Stadt"
+              />
 
-        <!-- ! Input-Formular mit select options -->
-        <form>
-          <input
-            type="text"
-            id="city-input"
-            placeholder="Such nach deiner Stadt"
+              <select
+                name="city-options"
+                multiple
+                size="5"
+                id="city-options"
+              ></select>
+            </form>
+
+            <!-- ! Wetterdaten Output - aus JS importiert -->
+            <section class="output">
+              <!-- * Container für Ratschlag basierend auf Wetter-ID -->
+              <div class="advice-message"></div>
+
+              <!-- * Container für Stadt, Datum, Zeit -->
+              <section class="weather-data-output"></section>
+
+              <section class="flex-end">
+                <!--* Container für Haupt-Infos -->
+                <article class="main-info"></article>
+
+                <!--* Container für weitere Infos -->
+                <article class="more-info"></article>
+              </section>
+            </section>
+          </article>
+          <img
+            src="./assets/img/summer-hiking-man.png"
+            alt="Illustration of hiker in the summer"
           />
-
-          <select
-            name="city-options"
-            multiple
-            size="5"
-            id="city-options"
-          ></select>
-        </form>
-
-        <!-- ! Wetterdaten Output - aus JS importiert -->
-        <section class="output">
-          <!-- * Container für Ratschlag basierend auf Wetter-ID -->
-          <div class="advice-message"></div>
-
-          <!-- * Container für Stadt, Datum, Zeit -->
-          <section class="weather-data-output"></section>
-
-          <section class="flex">
-            <!--* Container für Haupt-Infos -->
-            <article class="main-info"></article>
-
-            <!--* Container für weitere Infos -->
-            <article class="more-info"></article>
-          </section>
         </section>
+        <!-- <p>© Ann-Marie Mecklenburg</p>
+        <p>Illustration ©</p> -->
       </header>
     </article>
 

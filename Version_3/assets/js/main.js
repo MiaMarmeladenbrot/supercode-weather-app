@@ -4,9 +4,7 @@
 // - Alternativ: noch eine Suchlupe neben das Eingabefeld setzen, mit keyup/input im Input-Feld nach dem Ort suchen, ihn aus Dropdown-Options auswählen und dann erst mit Klick auf Suchlupe Wetterdatenausgabe triggern?
 // - 4. Version mit klassischem Wetter-App-Design machen
 // - footer mit credits
-
-// # Plus- und Minus-Grade bei den Ratschlägen mit berücksichtigen
-// # Media Queries hinzufügen
+// - Plus- und Minus-Grade bei den Ratschlägen mit berücksichtigen
 
 // ! HTML Elemente:
 const weatherDataOutput = document.querySelector(".weather-data-output");
@@ -81,7 +79,7 @@ const getWeatherData = (lat = 48.137154, lon = 11.576124) => {
     .then((data) => fetchWeatherData(data));
 };
 
-getWeatherData();
+// getWeatherData();
 
 // ! Funktion, um die gefetchten Wetterdaten ins HTML zu schreiben:
 const fetchWeatherData = (weatherData) => {
