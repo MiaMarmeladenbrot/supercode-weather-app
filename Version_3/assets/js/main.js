@@ -3,7 +3,7 @@
 // - weitere Illus suchen, um sie bei Ratschlägen auszugeben: https://www.freepik.com/author/pch-vector
 // - 4. Version mit klassischem Wetter-App-Design machen
 // - footer mit credits
-// - Plus- und Minus-Grade bei den Ratschlägen berücksichtigen
+// - Plus- und Minus-Grade bei den Ratschlägen berücksichtigen (dann bei Bildern über 30 Grad dieses nehmen: https://www.freepik.com/free-vector/woman-conditioning-air-home-feeling-hot-trying-cool-sitting-gat-fan-vector-illustration-summer-weather-home-appliance-heat-room_10174022.htm#&position=4&from_view=user&uuid=38b97589-7ac4-4963-8d79-7bca66aa5275)
 
 // ! HTML Elemente:
 const weatherDataOutput = document.querySelector(".weather-data-output");
@@ -177,36 +177,42 @@ const fetchWeatherData = (weatherData) => {
   // id = rain
   if (weatherData.weather[0].id >= 500 && weatherData.weather[0].id <= 599) {
     adviceMessage.innerHTML = `<p class="green">Mit Regenjacke vermutlich okay</p>`;
+    adviceImg.innerHTML = `<img src="./assets/img/rain.png" alt="Illustration of woman and child in rain">`;
   } else if (
     // id = clear - few clouds
     weatherData.weather[0].id >= 800 &&
     weatherData.weather[0].id <= 802
   ) {
     adviceMessage.innerHTML = `<p class="green">Perfektes Wanderwetter, viel Spaß!</p>`;
+    adviceImg.innerHTML = `<img src="./assets/img/two-hikers.png" alt="Illustration of hiking man and woman">`;
   } else if (
     // id = clouds
     weatherData.weather[0].id >= 803 &&
     weatherData.weather[0].id <= 804
   ) {
     adviceMessage.innerHTML = `<p class="green">Die paar Wolken sind doch kein Problem!</p>`;
+    // # hier fehlt noch ein Wolken-Bild
   } else if (
     // id = snow
     weatherData.weather[0].id >= 600 &&
     weatherData.weather[0].id <= 699
   ) {
     adviceMessage.innerHTML = `<p class="green">Mit warmer Kleidung vermutlich okay</p>`;
+    adviceImg.innerHTML = `<img src="./assets/img/snow.png" alt="Illustration of children playing on ice">`;
   } else if (
     // id = thunderstorm
     weatherData.weather[0].id >= 200 &&
     weatherData.weather[0].id <= 299
   ) {
     adviceMessage.innerHTML = `<p class="red">Viel zu stürmisch - ab auf die Couch!</p>`;
+    adviceImg.innerHTML = `<img src="./assets/img/couch.png" alt="Illustration of woman sitting on a couch">`;
   } else if (
     // id = drizzle
     weatherData.weather[0].id >= 300 &&
     weatherData.weather[0].id <= 399
   ) {
     adviceMessage.innerHTML = `<p class="green">Ohne Regenjacke evtl. bisschen unangenehm</p>`;
+    adviceImg.innerHTML = `<img src="./assets/img/rain.png" alt="Illustration of woman and child in rain">`;
   } else if (
     // id = atmosphere
     weatherData.weather[0].id >= 700 &&
