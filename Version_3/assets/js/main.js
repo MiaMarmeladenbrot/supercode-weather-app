@@ -1,11 +1,9 @@
 // # VERSION 3: input-Feld mit select-Options
 // * To Dos
-// - EventListener auf das Event input funktioniert in dieser Form nicht für mobile, keyup und change haben auch nicht funktioniert --> Tipp von Thomas ausprobieren, Article/Paragraph statt Select/Options
-// - Alternativ: noch eine Suchlupe neben das Eingabefeld setzen, mit keyup/input im Input-Feld nach dem Ort suchen, ihn aus Dropdown-Options auswählen und dann erst mit Klick auf Suchlupe Wetterdatenausgabe triggern?
 // - weitere Illus suchen, um sie bei Ratschlägen auszugeben: https://www.freepik.com/author/pch-vector
 // - 4. Version mit klassischem Wetter-App-Design machen
 // - footer mit credits
-// - Plus- und Minus-Grade bei den Ratschlägen mit berücksichtigen
+// - Plus- und Minus-Grade bei den Ratschlägen berücksichtigen
 
 // ! HTML Elemente:
 const weatherDataOutput = document.querySelector(".weather-data-output");
@@ -41,23 +39,25 @@ const getUserData = (event) => {
     .catch((err) => console.log("Fehler beim GeoDaten-Fetchen", err));
 };
 
-// ! Funktion, um die gefundenen Suchergebnisse via select/option anzeigen zu lassen:
+// ! Funktion, um die gefundenen Suchergebnisse via article/p anzeigen zu lassen:
 const getOptions = (cities) => {
   // * über gefetchte Geo-Daten des User-Inputs (getUserData()) iterieren, um alle gefetchten Suchergebnisse des User-Inputs zu durchlaufen:
   cities.forEach((city) => {
     // console.log(city);
 
-    // * option-Elemente im select-Output erstellen und mit Name und Land des Suchergebnisses befüllen:
-    const optionElement = document.createElement("option");
-    optionElement.textContent = `${city.name} | ${city.country}`;
-    optionsOutput.classList.add("show");
+    // * Ratschlag-p-Tag leeren:
+    document.querySelector(".ratschlag").classList.add("hide");
+
+    // * p-Elemente im article-Output erstellen und mit Name und Land des Suchergebnisses befüllen:
+    const optionElement = document.createElement("p");
+    optionElement.textContent = `${city.name} (${city.country})`;
     errorMessage.innerHTML = "";
     optionsOutput.appendChild(optionElement);
 
-    // * Event Listener: sobald auf eine Option geklickt wird, sollen ...
+    // * Event Listener: sobald auf ein p-Tag geklickt wird, sollen ...
     optionElement.addEventListener("click", () => {
-      // * ... die anderen Optionen verschwinden:
-      optionsOutput.classList.remove("show");
+      // * ... alle p-Tags wieder verschwinden:
+      optionsOutput.innerHTML = "";
 
       // * ... und mithilfe der Latitude und Longitude der ausgewählten Stadt soll die Funktion getWeatherData () aufgerufen werden, um die Wetterdaten für die gewählte Stadt auszugeben:
       const lat = city.lat;
@@ -130,9 +130,6 @@ const fetchWeatherData = (weatherData) => {
   const localMinutes =
     dt.getUTCMinutes() < 10 ? `0${dt.getUTCMinutes()}` : dt.getUTCMinutes();
 
-  // * Ratschlag-p-Tag leeren:
-  document.querySelector(".ratschlag").classList.add("hide");
-
   // * Weather-Data-Box betexten:
   weatherDataOutput.innerHTML = `
   <div>
@@ -176,6 +173,7 @@ const fetchWeatherData = (weatherData) => {
     `;
 
   // * Ratschlag ins HTML schreiben zusammen mit passendem Bild, basierend auf den IDs der Wetterdaten:
+  // # hier noch weitere Bilder suchen und einbauen
   // id = rain
   if (weatherData.weather[0].id >= 500 && weatherData.weather[0].id <= 599) {
     adviceMessage.innerHTML = `<p class="green">Mit Regenjacke vermutlich okay</p>`;
@@ -224,7 +222,7 @@ const fetchWeatherData = (weatherData) => {
 // ! Event Listener auf dem Input-Feld, um die User-Suchergebnisse direkt darunter auszugeben:
 const input = document.querySelector("#city-input");
 input.addEventListener("input", () => {
-  // Select-Element immer zuerst leeren, damit Options-Felder sich überschreiben, nicht ergänzen:
+  // article-Element immer zuerst leeren, damit die p-Tags darin sich überschreiben, nicht ergänzen:
   optionsOutput.innerHTML = "";
   // Funktionsaufruf, um User-Input zu kriegen und alles weitere loszutreten:
   getUserData(event);

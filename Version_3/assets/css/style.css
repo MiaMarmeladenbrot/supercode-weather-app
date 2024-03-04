@@ -69,10 +69,6 @@ img {
   color: #ec7d2b;
 }
 
-/* header {
-  display: flex;
-} */
-
 /* ! Input Form für Stadt */
 form {
   display: flex;
@@ -96,7 +92,8 @@ form {
   color: #29589b;
 }
 
-select {
+/* vorherige Version mit select-Box und hinzugefügten options: */
+/* select {
   display: none;
   width: 200px;
   color: #29589b;
@@ -108,6 +105,17 @@ select {
 
   position: absolute;
   top: 3rem;
+} */
+
+#city-options p {
+  width: 200px;
+  font-size: 1.6rem;
+  color: #29589b;
+  padding: 5px 10px;
+  border-top: 1px solid #29589b;
+  overflow-y: auto;
+  border: none;
+  border-radius: 10px;
 }
 
 .show {
